@@ -163,7 +163,7 @@ function AboutUs() {
   return (
     <Box sx={{ p: 4 }}>
       <Typography variant="h4">This is AboutUs page</Typography>
-      <Typography>This is aboutUs</Typography>
+      <Typography>This is aboutUs page</Typography>
     </Box>
   );
 }
