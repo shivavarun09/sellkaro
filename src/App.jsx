@@ -3,7 +3,7 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import '@fontsource/inter';
-import Test from "./pages/test";
+import Test from "./pages/Test";
 import {} from "@mui/joy/styles"
 import DashboardLayoutBasic from './pages/Home'
 
