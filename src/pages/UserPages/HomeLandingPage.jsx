@@ -8,13 +8,13 @@ Button,
 const HomeLandingPage = () => {
   return (
     <>
-{/* <Box sx={{ m: 2 , h:5}}>
+<Box sx={{ m: 2 , h:5}}>
   <img
-    src="https://media.gettyimages.com/id/183764681/photo/3d-gift-card.jpg?s=612x612&w=gi&k=20&c=84dXzQWjWhrmOcXW72-jfT1c0_P08KOKmrC1CI1Bg4I="
+    src='../assets/AllGCBrands.png'
     alt="All Brands Img"
     style={{ width: '100%', height: 'auto' }}
   />
-</Box> */}
+</Box>
 
 
       <Box sx={{m:2,p:2,textAlign:"center", backgroundColor:"beige"}}>
@@ -34,6 +34,12 @@ const HomeLandingPage = () => {
         FAQs
       </Typography>
       <SellGiftCatdTC/>
+    </Box>
+
+    <Box sx={{m:2}}>
+<Typography variant="h1">
+  this is reviews box
+</Typography>
     </Box>
     </>
   )
