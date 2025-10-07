@@ -19,8 +19,8 @@ import Login from './Login'
 import Register from './Register'
 import SellGiftCardForm from "./SellGiftCardForm"
 import SellHistory from './GiftcardSellHistory'
-import GiftCardCard from './SingleGiftCard';
 import ProfilePage from './ProfilePage';
+import HomeLandingPage from './HomeLandingPage'
 
  const token = localStorage.getItem("token"); // check if user logged in
 // Navigation configuration
@@ -164,7 +164,7 @@ function  RouterAdapter() {
     <AppProvider navigation={NAVIGATION} router={router}     theme={demoTheme}  branding={{title:"SellKaro", logo:<CardGiftcardIcon />}} >
       <DashboardLayout>
         <Routes>
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/dashboard" element={<HomeLandingPage />} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/sellgiftcards" element={<SellGiftCardForm />} />
           <Route path="/orderhistory" element={<SellHistory />} />
@@ -173,7 +173,7 @@ function  RouterAdapter() {
           <Route path="/aboutus" element={<AboutUs />} />
 <Route path="/login" element={<Login />} />
 <Route path="/register" element={<Register />} />  
-          <Route path="*" element={<Dashboard />} /> {/* Fallback route */}
+          <Route path="*" element={<HomeLandingPage />} /> {/* Fallback route */}
         </Routes>
       </DashboardLayout>
     </AppProvider>

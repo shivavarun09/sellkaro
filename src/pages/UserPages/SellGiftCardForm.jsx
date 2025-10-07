@@ -13,7 +13,7 @@ import {
   Paper,
   Box,
 } from "@mui/material";
-
+import SellGiftCatdTC from "./SellGiftCardTC";
 export default function SellGiftCard() {
   const navigate = useNavigate();
 
@@ -188,6 +188,15 @@ let selected = feeMap[formData.gcbrand] || { name: "Amazon", fee: 10 };
             </Typography>
           )}
         </Paper>
+      </Box>
+      <Box sx={{
+        m:2
+      }}>
+        <Typography variant="h5" sx={{mb:1}}>
+          FAQS
+        </Typography>
+      <SellGiftCatdTC />
+
       </Box>
     </>
   );
