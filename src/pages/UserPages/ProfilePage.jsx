@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import LogoutIcon from '@mui/icons-material/Logout';
+
 import AddBankAccountForm from "./AddBankAccount";
 import {
   Box,
@@ -25,7 +27,7 @@ const modalStyle = {
   p: 3,
 };
 
-function Profile() {
+function Profile({userRole}) {
   const [profile, setProfile] = useState(null);
   const [bankAccounts, setBankAccounts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -47,7 +49,7 @@ function Profile() {
 
         // Fetch bank account
         const bankRes = await axios.get(
-          "http://localhost:5000/bankaccount/myaccount",
+          "http://localhost:5000/bankaccount/myaccount/",
           { headers: { Authorization: `Bearer ${token}` } }
         );
 
@@ -66,12 +68,22 @@ function Profile() {
 
   // Logout
   const handleLogout = () => {
-    localStorage.removeItem("token");
+    localStorage.removeItem("userToken");
     window.location.href = "/login";
   };
 
   if (loading) return <Typography align="center">Loading...</Typography>;
-  if (!profile) return <Typography align="center">No profile found</Typography>;
+  if (!profile) return   ( <Box sx={{ m: 2, p: 2, textAlign: "center", backgroundColor: "beige", borderRadius: 2 }}>
+  <Typography variant="h4" sx={{ mb: 1 }}>
+    Welcome, Guest!
+  </Typography>
+  <Typography sx={{ mb: 1 }}>
+    Join SellKaro today and start turning your unused gift cards into instant cash.
+  </Typography>
+  <Button variant="contained" href="/login">
+    Get Started
+  </Button>
+</Box>)
 
   return (
     <Container component="main" maxWidth="xs">
@@ -106,60 +118,57 @@ function Profile() {
           variant="contained"
           onClick={handleLogout}
         >
-          Logout
+          Logout  <LogoutIcon/>
         </Button>
       </Box>
 
       {/* Bank Accounts Section */}
-      <Box
-        sx={{
-          mt: 2,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          p: 3,
-          boxShadow: 3,
-          borderRadius: 2,
-        }}
-      >
-        <Typography variant="h6" sx={{ mb: 2 }}>
-          Your Bank Accounts
-        </Typography>
+      {userRole === "user" && (
+  <Box
+    sx={{
+      mt: 2,
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      p: 3,
+      boxShadow: 3,
+      borderRadius: 2,
+    }}
+  >
+    <Typography variant="h6" sx={{ mb: 2 }}>
+      Your Bank Accounts
+    </Typography>
 
-        {bankAccounts.length === 0 ? (
-          <Typography sx={{textAlign:"center"}}>Please add bank account details for payout</Typography>
-        ) : (
-          bankAccounts.map((account) => (
-            <Paper
-              key={account._id}
-              sx={{ p: 2, mb: 2, width: "100%"}}
-            >
-              <Typography>
-                <strong>Account Holder:</strong> {account.accountHolderName}
-              </Typography>
-                <Typography>
-                <strong>Bank Name:</strong> {account.bankName}
-              </Typography>
-              <Typography>
-                <strong>Account Number:</strong> {account.accountNumber}
-              </Typography>
-              <Typography>
-                <strong>IFSC Code:</strong> {account.ifscCode}
-              </Typography>
-            
-            </Paper>
-          ))
-        )}
+    {bankAccounts.length === 0 ? (
+      <Typography sx={{ textAlign: "center" }}>
+        Please add bank account details for payout
+      </Typography>
+    ) : (
+      bankAccounts.map((account) => (
+        <Paper key={account._id} sx={{ p: 2, mb: 2, width: "100%" }}>
+          <Typography>
+            <strong>Account Holder:</strong> {account.accountHolderName}
+          </Typography>
+          <Typography>
+            <strong>Bank Name:</strong> {account.bankName}
+          </Typography>
+          <Typography>
+            <strong>Account Number:</strong> {account.accountNumber}
+          </Typography>
+          <Typography>
+            <strong>IFSC Code:</strong> {account.ifscCode}
+          </Typography>
+        </Paper>
+      ))
+    )}
 
-        {/* Add Bank Account Button */}
-        <Button
-          onClick={() => setOpen(true)}
-          variant="contained"
-          sx={{ mt: 2 }}
-        >
-          {bankAccounts.length === 0 ?"Add Bank Details" :"Update Bank Details"}
-        </Button>
-      </Box>
+    {/* Add/Update Bank Account Button */}
+    <Button onClick={() => setOpen(true)} variant="contained" sx={{ mt: 2 }}>
+      {bankAccounts.length === 0 ? "Add Bank Details" : "Update Bank Details"}
+    </Button>
+  </Box>
+)}
+
 
       {/* Add Bank Modal */}
       <Modal open={open} onClose={() => setOpen(false)}>

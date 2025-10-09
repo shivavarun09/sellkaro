@@ -49,7 +49,7 @@ export default function SingleGiftCard({ card }) {
       <Divider />
       <CardActions sx={{ justifyContent: "space-between", px: 2 }}>
         <Typography variant="h6" sx={{display:"flex", alignItems:"center"}}>
-      Payout <CurrencyRupeeIcon/>{card.gcUserPayout}
+      Payout After Fee<CurrencyRupeeIcon/>{card.gcUserPayout}
         </Typography>
         {/* <Button
           variant="contained"

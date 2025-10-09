@@ -11,7 +11,7 @@ import {
   CssBaseline,
 } from "@mui/material";
 
-export default function Login() {
+export default function Login({setUserRole}) {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
@@ -28,20 +28,10 @@ export default function Login() {
 
       // ✅ Store token + role
       localStorage.setItem("userToken", JSON.stringify({ token, role }));
-
+setUserRole(role)
       setMessage(res.data.message);
-
-      // ✅ Navigate based on role
-      if (role === "admin") {
-        console.log("Admin dashboard");
-        navigate("/admin/dashboard");
-      } else if (role === "user") {
-        console.log("User dashboard");
-        navigate("/user/dashboard");
-      } else {
-        console.log("Unknown role");
-        navigate("/");
-      }
+navigate("/profile")
+  
     } catch (err) {
       setMessage(err.response?.data?.message || "Login failed");
     }

@@ -58,7 +58,7 @@ export default function SingleGiftCard({ card }) {
       const res = await axios.get(`http://localhost:5000/admin/bankaccount/${card.user}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-
+    
       setUserBankDetails(res.data.data);
       setPayoutModal(true);
     } catch (error) {

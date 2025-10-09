@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {useState,useEffect} from 'react'
 import { createTheme } from '@mui/material/styles';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -20,71 +21,31 @@ import Register from './Register'
 import SellGiftCardForm from "./SellGiftCardForm"
 import SellHistory from './GiftcardSellHistory'
 import ProfilePage from './ProfilePage';
-import HomeLandingPage from './HomeLandingPage'
+import HomeLandingPage from './HomeLandingPage';
 
- const token = localStorage.getItem("token"); // check if user logged in
-// Navigation configuration
-const NAVIGATION = [
-  {
-    kind: 'header',
-    title: 'Main items',
-  },
-  {
-    segment: 'home',
-    title: 'Home',
-    icon: <HomeIcon />,
-  },
-   {
-    segment: 'profile',
-    title: 'Profile',
-    icon: <AccountBoxIcon />,
-  },
-  {
-    kind: 'divider',
-  },
-  {
-    kind: 'header',
-    title: 'giftCards',
-  },
-    {
-    segment: 'sellgiftcards',
-    title: 'SellGiftCards',
-    icon: <CardGiftcardIcon />,
-  },
-    {
-    segment: 'orderhistory',
-    title: 'Orders',
-    icon: <HistoryIcon />,
-  },
-  {
-    kind: 'header',
-    title: 'Others',
-  },
-  {
-  title: 'ContactUs',
-  icon: <ContactPageIcon />,
-  children: [
-    {
-      title: 'Email',
-      icon: <EmailIcon />,
-segment:'email',
-    },
-    {
-      title: 'WhatsApp',
-      icon: <WhatsAppIcon />,
-segment:"whatsapp",
-    },
-  ],
-},
-  {
-    segment: 'aboutUs',
-    title: 'AboutUs',
-    icon: <InfoIcon />,
-  },
- { segment: 'login', title: 'Login', icon: <InfoIcon /> }
-    
-,
-];
+
+// const adminNav = [
+//     {
+//     kind: 'header',
+//     title: 'Giftcard orders',
+//   },
+//   { segment: 'all', title: 'All', icon: <LogoutIcon /> },
+//   { segment: 'pending', title: 'Pending', icon: <LogoutIcon /> },
+//   { segment: 'rejected', title: 'Rejected', icon: <LogoutIcon /> },
+//   { segment: 'accepted', title: 'Accepted', icon: <LogoutIcon /> },
+//     { kind: 'divider' },
+// ];
+
+// if (loggedInUserRole === 'admin') {
+//   // Insert adminNav at 3rd position (index 2)
+//   NAVIGATION.splice(4, 0, ...adminNav);
+// }
+
+
+// const nav = ["aboutUs","sellgiftcards","orderhistory","giftCards"]; // segments to remove
+// if (loggedInUserRole === 'admin') {
+//   NAVIGATION = NAVIGATION.filter(item => !nav.includes(item.segment)&& !nav.includes(item.title));
+// }
 
 // Theme configuration
 const demoTheme = createTheme({
@@ -121,24 +82,6 @@ function WhatsAppRedirect() {
 
   return <Typography sx={{ p: 4 }}>Opening WhatsApp…</Typography>;
 }
-
-
-
-
-function Dashboard() {
-  return (
-    <Box sx={{ p: 4 }}>
-      <Typography variant="h4">Dashboard Page</Typography>
-      <Typography>Welcome to the main dashboard!</Typography>
-    </Box>
-  );
-}
-
-
-
-
-
-
 function AboutUs() {
   return (
     <Box sx={{ p: 4 }}>
@@ -147,6 +90,9 @@ function AboutUs() {
     </Box>
   );
 }
+
+
+
 
 
 
@@ -160,19 +106,61 @@ function  RouterAdapter() {
     navigate: (path) => navigate(path),
   };
 
+    const [userRole, setUserRole] = useState("");
+  useEffect(() => {
+  // This effect runs whenever userRole changes
+  // or when you manually read from localStorage
+  const storedRole = JSON.parse(localStorage.getItem("userToken") || "{}")?.role || null;
+  if(setUserRole!=userRole){
+    setUserRole(storedRole);
+  }
+}, [userRole]); // dependency array
+
+
+ let NAVIGATION = [
+    { kind: "header", title: "Personal Panel" },
+    { segment: "home", title: "Home", icon: <HomeIcon /> },
+    { segment: "profile", title: "Profile", icon: <AccountBoxIcon /> },
+    { kind: "divider" },
+    ...(userRole === "admin"
+      ? [
+          { kind: "header", title: "Admin Panel" },
+          { segment: "all", title: "All Orders", icon: <LogoutIcon /> },
+        ]
+      : [
+          { kind: "header", title: "GiftCards" },
+          { segment: "sellgiftcards", title: "Sell GiftCards", icon: <CardGiftcardIcon /> },
+          { segment: "orderhistory", title: "Orders", icon: <HistoryIcon /> },
+        ]),
+          { kind: "divider" },
+    { kind: "header", title: "Others" },
+    {
+      title: "ContactUs",
+      icon: <ContactPageIcon />,
+      children: [
+        { title: "Email", icon: <EmailIcon />, segment: "email" },
+        { title: "WhatsApp", icon: <WhatsAppIcon />, segment: "whatsapp" },
+      ],
+    },
+    { segment: "aboutUs", title: "About Us", icon: <InfoIcon /> },
+    !userRole && { segment: "login", title: "Login", icon: <LogoutIcon /> },
+  ].filter(Boolean); // remove null/false entries
+
+
   return (
     <AppProvider navigation={NAVIGATION} router={router}     theme={demoTheme}  branding={{title:"SellKaro", logo:<CardGiftcardIcon />}} >
       <DashboardLayout>
         <Routes>
-          <Route path="/dashboard" element={<HomeLandingPage />} />
-          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/login" element={<Login setUserRole={setUserRole}/>} />
+          <Route path="/home" element={<HomeLandingPage />} />
+          <Route path="/profile" element={<ProfilePage userRole={userRole}/>} />
           <Route path="/sellgiftcards" element={<SellGiftCardForm />} />
-          <Route path="/orderhistory" element={<SellHistory />} />
+          <Route path="/orderhistory" element={<SellHistory userRole={userRole}/>} />
+          <Route path="/all" element={<SellHistory userRole={userRole}/>} />
           <Route path="/email" element={<EmailRedirect />} />
           <Route path="/whatsapp" element={<WhatsAppRedirect />} />
           <Route path="/aboutus" element={<AboutUs />} />
-<Route path="/login" element={<Login />} />
-<Route path="/register" element={<Register />} />  
+          <Route path="/register" element={<Register />} />  
           <Route path="*" element={<HomeLandingPage />} /> {/* Fallback route */}
         </Routes>
       </DashboardLayout>
