@@ -28,13 +28,14 @@ const SellHistory = ({ userRole }) => {
       const API =
         userRole === "admin"
           ? gcStatusFilter
-            ? `http://localhost:5000/admin/filter?gcstatus=${gcStatusFilter}&page=${page}&limit=6`
+            ? `http://localhost:5000/admin/allgc?gcstatus=${gcStatusFilter}&page=${page}&limit=6`
             : `http://localhost:5000/admin/allgc?page=${page}&limit=6`
           : `http://localhost:5000/giftcards/sellhistory?page=${page}&limit=6`;
 
       const res = await axios.get(API, {
         headers: { Authorization: `Bearer ${token}` },
       });
+console.log("API Response:", res.data);
 
       setGiftcards(res.data.data || []);
       setTotalPages(res.data.totalPages || 1);
@@ -51,9 +52,11 @@ const SellHistory = ({ userRole }) => {
   }, [fetchGiftCards]);
 
   const renderAdminFilters = () => (
-    <Stack direction="row" spacing={2} justifyContent="center" mb={2}>
+    <Stack direction="row" spacing={1} justifyContent="center" mb={2} >
       {["All", "Under Review", "Rejected", "Payout Released"].map((status) => (
         <Button
+        size="small"
+        
           key={status}
           variant={gcStatusFilter === status || (status === "All" && !gcStatusFilter) ? "contained" : "outlined"}
           color={status === "Rejected" ? "error" : status === "Payout Released" ? "success" : "secondary"}
@@ -70,11 +73,15 @@ const SellHistory = ({ userRole }) => {
 
   return (
     <Container maxWidth="lg" sx={{ mt: 4 }}>
-      <Typography variant="h4" gutterBottom align="center">
+      <Box sx={{position:"sticky",top:0,backgroundColor:"white",zIndex:5,paddingBottom:1}}>
+  <Typography variant="h4" gutterBottom align="center">
         {userRole === "admin" ? "All Gift Card Orders" : "My Gift Card Sell History"}
       </Typography>
 
       {userRole === "admin" && renderAdminFilters()}
+
+      </Box>
+    
 
       <Box
         sx={{
@@ -110,7 +117,7 @@ const SellHistory = ({ userRole }) => {
 
       {/* MUI Pagination */}
       {totalPages > 1 && (
-        <Stack spacing={2} alignItems="center" mt={2} >
+        <Stack spacing={2} alignItems="center" mt={0} mb={3} >
           <Pagination
             count={totalPages}
             page={page}

@@ -42,14 +42,31 @@ export default function SingleGiftCard({ card }) {
           <Typography variant="body1"  sx={{ mt: 1, display: "flex", alignItems: "center", gap: 0.5 }}>
           <DateRangeIcon/> {card.gcexpiry.slice(0,10)}
         </Typography>
-        <Typography variant="body2" color="text.secondary"  sx={{ mt: 1, display: "flex", alignItems: "center", gap: 0.5 }}>
-          <HourglassTopIcon/> {card.gcstatus || "N/A"}
-        </Typography>
+    <Typography
+  variant="body2"
+  sx={{
+    mt: 1,
+    display: "flex",
+    alignItems: "center",
+    gap: 0.5,
+    color:
+      card.gcstatus === "Under Review"
+        ? "orange"
+        : card.gcstatus === "Rejected"
+        ? "red"
+        : card.gcstatus === "Payout Released"
+        ? "green"
+        : "text.secondary", // fallback color
+  }}
+>
+  <HourglassTopIcon /> {card.gcstatus || "N/A"}
+</Typography>
+
       </CardContent>
       <Divider />
       <CardActions sx={{ justifyContent: "space-between", px: 2 }}>
         <Typography variant="h6" sx={{display:"flex", alignItems:"center"}}>
-      Payout After Fee<CurrencyRupeeIcon/>{card.gcUserPayout}
+      Payout<CurrencyRupeeIcon/>{card.gcUserPayout}
         </Typography>
         {/* <Button
           variant="contained"

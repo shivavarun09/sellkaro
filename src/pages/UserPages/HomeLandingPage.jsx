@@ -4,18 +4,13 @@ import {Box,
 Typography ,
 Button,
 
-} from '@mui/material'
+} from '@mui/material';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import ReviewSwipper from "./UserReviewSwipper";
+import UserReviewSwipper from "./UserReviewSwipper";
 const HomeLandingPage = () => {
   return (
     <>
-<Box sx={{ m: 2 , h:5}}>
-  <img
-    src='../assets/AllGCBrands.png'
-    alt="All Brands Img"
-    style={{ width: '100%', height: 'auto' }}
-  />
-</Box>
-
 
       <Box sx={{m:2,p:2,textAlign:"center", backgroundColor:"beige"}}>
       <Typography variant="h4" sx={{mb:1}}>
@@ -29,18 +24,52 @@ const HomeLandingPage = () => {
       </Button>
     </Box>
 
-    <Box sx={{m:2}}>
+  {/* user Reviews  */}
+      <UserReviewSwipper/>
+    
+
+    <Box sx={{mt:0,m:2}}>
       <Typography variant="h5" sx={{mb:1}}>
         FAQs
       </Typography>
       <SellGiftCatdTC/>
     </Box>
 
-    <Box sx={{m:2}}>
-<Typography variant="h1">
-  this is reviews box
-</Typography>
-    </Box>
+  <Box sx={{ m: 2 }}>
+  <table style={{ width: "100%" }}>
+    <tbody>
+    
+      <tr>
+        <td
+          style={{
+            padding: "24px 32px",
+            backgroundColor: "#f1f5f9",
+            color: "#6b7280",
+            fontSize: "12px",
+            textAlign: "center",
+            lineHeight: 1.5,
+          }}
+        >
+          <Typography variant="body2" sx={{mb:1}}>
+            SellKaro Pvt Ltd. &bull; Hyderabad, India.
+          </Typography>
+        <Typography 
+         variant="body2" 
+       sx={{ display: "flex", justifyContent: "center", alignItems: "center", mb: 1, gap: 0.5 }}
+         >
+        Made with Love <FavoriteIcon color="error" fontSize="small" />
+        </Typography>
+
+          <Typography variant="body2"  sx={{mb:1}}>
+            © 2025 SellKaro. All rights reserved.
+
+          </Typography>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</Box>
+
     </>
   )
 }

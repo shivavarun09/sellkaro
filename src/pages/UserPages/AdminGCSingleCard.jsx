@@ -43,6 +43,7 @@ export default function SingleGiftCard({ card }) {
 
   if (!card) return null;
 
+  //Helper function for icons
   const InfoRow = ({ icon: Icon, value }) => (
     <Typography sx={{ mt: 1, display: "flex", alignItems: "center", gap: 0.5 }}>
       <Icon /> {value || "N/A"}

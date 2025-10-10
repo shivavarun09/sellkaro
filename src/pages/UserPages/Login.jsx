@@ -30,7 +30,13 @@ export default function Login({setUserRole}) {
       localStorage.setItem("userToken", JSON.stringify({ token, role }));
 setUserRole(role)
       setMessage(res.data.message);
+      if(role==="admin"){
+navigate("/all")
+      }
+      else{
 navigate("/profile")
+
+      }
   
     } catch (err) {
       setMessage(err.response?.data?.message || "Login failed");

@@ -14,7 +14,7 @@ export default function SellGiftCatdTC() {
     },
     { faqno:2,
       question:"How to add Bank Account ?",
-      answer:"After logging in, go to your profile and click on **“Add Bank Account Details.”** Enter your bank account information to set it up for payouts.",
+      answer:"After logging in, go to your profile and click on Add Bank Account Details Button.Enter your bank account information to set it up for payouts.",
     },
     { faqno:3,
       question:"What is the deduction for selling gift card on SellKaro.",

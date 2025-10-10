@@ -22,6 +22,7 @@ import SellGiftCardForm from "./SellGiftCardForm"
 import SellHistory from './GiftcardSellHistory'
 import ProfilePage from './ProfilePage';
 import HomeLandingPage from './HomeLandingPage';
+import AboutUsPage from './AboutUsPage'
 
 
 // const adminNav = [
@@ -131,8 +132,7 @@ function  RouterAdapter() {
           { kind: "header", title: "GiftCards" },
           { segment: "sellgiftcards", title: "Sell GiftCards", icon: <CardGiftcardIcon /> },
           { segment: "orderhistory", title: "Orders", icon: <HistoryIcon /> },
-        ]),
-          { kind: "divider" },
+            { kind: "divider" },
     { kind: "header", title: "Others" },
     {
       title: "ContactUs",
@@ -143,8 +143,14 @@ function  RouterAdapter() {
       ],
     },
     { segment: "aboutUs", title: "About Us", icon: <InfoIcon /> },
+        ]),
+        
     !userRole && { segment: "login", title: "Login", icon: <LogoutIcon /> },
   ].filter(Boolean); // remove null/false entries
+
+if (userRole === "admin") {
+  NAVIGATION = NAVIGATION.filter(item => item.segment !== "home");
+}
 
 
   return (
@@ -159,7 +165,7 @@ function  RouterAdapter() {
           <Route path="/all" element={<SellHistory userRole={userRole}/>} />
           <Route path="/email" element={<EmailRedirect />} />
           <Route path="/whatsapp" element={<WhatsAppRedirect />} />
-          <Route path="/aboutus" element={<AboutUs />} />
+          <Route path="/aboutus" element={<AboutUsPage />} />
           <Route path="/register" element={<Register />} />  
           <Route path="*" element={<HomeLandingPage />} /> {/* Fallback route */}
         </Routes>
