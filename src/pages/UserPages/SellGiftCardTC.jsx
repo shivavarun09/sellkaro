@@ -36,7 +36,7 @@ export default function SellGiftCatdTC() {
           <Typography component="span">{faq.question}</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography>
+          <Typography variant='body2'>
         {faq.answer}
           </Typography>
         </AccordionDetails>
