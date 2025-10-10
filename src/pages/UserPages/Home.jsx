@@ -68,14 +68,14 @@ const demoTheme = createTheme({
 // Components for each route
 function EmailRedirect() {
   React.useEffect(() => {
-    window.location.href = "mailto:yourmail@example.com"; // Mail
+    window.location.href = "mailto:contactus@sellkaro.com"; // Mail
   }, []);
   return <Typography sx={{ p: 4 }}>Opening Email…</Typography>;
 }
 
 function WhatsAppRedirect() {
   React.useEffect(() => {
-    const phoneNumber = "919876543210"; // Whatsapp Number
+    const phoneNumber = "000000000"; // Whatsapp Number
     const message = "Hello, I am interested in selling my gift cards"; // message
     const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
       window.open(url, "_blank", "noopener,noreferrer");
