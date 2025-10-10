@@ -12,7 +12,7 @@ const HomeLandingPage = () => {
   return (
     <>
 
-      <Box sx={{m:2,mb:0,p:2,textAlign:"center", backgroundColor:"beige"}}>
+      <Box sx={{m:2,mb:0,p:2,textAlign:"center",   backgroundColor: "#f1f5f9"}}>
       <Typography variant="h4" sx={{mb:1}}>
         Have a Giftcard?
       </Typography>
