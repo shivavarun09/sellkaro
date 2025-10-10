@@ -9,7 +9,7 @@ import "swiper/css/pagination";
 const ReviewCard = ({ name, avatar, rating, review }) => (
   <Card sx={{ p: 2, mx: "auto",border:"none" }}>
     <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 1 }}>
-      <Avatar alt={name} src={avatar} sx={{ width: 56, height: 56 }} />
+      <Avatar  alt={name} src={avatar} sx={{ width: 56, height: 56 }} />
       <Typography variant="body2" fontWeight="bold">
         {name}
       </Typography>
