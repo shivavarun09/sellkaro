@@ -44,7 +44,15 @@ const UserReviewSwipper = () => {
       rating: 5,
       review:
 "I sold my Flipkart gift card on SellKaro after reading good reviews, and I must say it’s totally worth it. The interface is clean, the steps are simple, and I got my money almost instantly. Highly recommended for anyone who shops online often!" 
-   }
+   },
+   {
+  name: "Nehal",
+  avatar: "https://m.media-amazon.com/images/I/71V7EyCBtiL.jpg",
+  rating: 5,
+  review:
+    "I had an unused Amazon gift card and decided to try SellKaro. The process was super fast and smooth — got my payment within minutes! Totally reliable and user-friendly platform."
+}
+
   ];
 
   return (
