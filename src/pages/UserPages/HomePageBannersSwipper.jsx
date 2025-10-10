@@ -58,7 +58,7 @@ const HomePageBannersSwipper = () => {
         loop
         breakpoints={{
           600: { slidesPerView: 1 },
-          900: { slidesPerView: 1 },
+          900: { slidesPerView: 2 },
           1200: { slidesPerView: 3 }
         }}
         style={{ padding: "10px 20px" }}
