@@ -9,6 +9,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ReviewSwipper from "./UserReviewSwipper";
 import UserReviewSwipper from "./UserReviewSwipper";
 import HomePageBannersSwipper from "./HomePageBannersSwipper";
+import API from './RenderBaseApi.js'
 const HomeLandingPage = () => {
   return (
     <>
@@ -20,9 +21,10 @@ const HomeLandingPage = () => {
       <Typography sx={{mb:1}}>
         Don't need your gift card? Sell it on SellKaro in 3 easy steps and get money in your bank account!
       </Typography>
-      <Button variant="contained">
-       Sell Now
-      </Button>
+    <Button variant="contained" href={`https://sellkaro.vercel.app/login`}>
+  Sell Now
+</Button>
+
     </Box>
 
   {/* user Reviews  */}

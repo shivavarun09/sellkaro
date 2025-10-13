@@ -1,3 +1,4 @@
+import  API  from "./RenderBaseApi.js"; //Base API
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -19,7 +20,7 @@ export default function Register() {
   });
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
-
+console.log(API)
   const handleChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
@@ -27,7 +28,8 @@ export default function Register() {
     e.preventDefault();
     try {
       const res = await axios.post(
-        "http://localhost:5000/auth/register",
+        // http://localhost:5000/auth/register
+        `${API}/auth/register`,
         formData
       );
       setMessage(res.data.message);

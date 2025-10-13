@@ -1,3 +1,4 @@
+import API from './RenderBaseApi.js'
 import React, { useState } from "react";
 import { Box, Button, TextField, Typography } from "@mui/material";
 import axios from "axios";
@@ -18,7 +19,7 @@ export default function BankForm({ onClose,bankAccounts }) {
     e.preventDefault();
     try {
       const token = JSON.parse(localStorage.getItem("userToken") || "{}")?.token;
-      await axios.post("http://localhost:5000/bankaccount/addaccount", formData, {
+      await axios.post(`${API}/bankaccount/addaccount`, formData, {
         headers: { Authorization: `Bearer ${token}` },
       });
       alert("Bank details added successfully ✅");

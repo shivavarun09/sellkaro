@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import API from './RenderBaseApi.js'
 import axios from "axios";
 import {
   Box,
@@ -56,7 +57,7 @@ export default function SingleGiftCard({ card }) {
       const token = JSON.parse(localStorage.getItem("userToken") || "{}")?.token;
       if (!token) throw new Error("Please login first");
 
-      const res = await axios.get(`http://localhost:5000/admin/bankaccount/${card.user}`, {
+      const res = await axios.get(`${API}/admin/bankaccount/${card.user}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
     
@@ -83,7 +84,7 @@ export default function SingleGiftCard({ card }) {
       if (!token) throw new Error("Unauthorized");
 
       const res = await axios.put(
-        `http://localhost:5000/admin/giftcards/${card._id}/status`,
+        `${API}/admin/giftcards/${card._id}/status`,
         { status: newStatus },
         { headers: { Authorization: `Bearer ${token}` } }
       );

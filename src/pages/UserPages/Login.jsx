@@ -1,3 +1,4 @@
+import  API  from "./RenderBaseApi.js"; //Base API
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -22,7 +23,8 @@ export default function Login({setUserRole}) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:5000/auth/login", formData);
+      // http://localhost:5000/auth/login
+      const res = await axios.post(`${API}/auth/login`, formData);
 
       const { token, role } = res.data.data;
 

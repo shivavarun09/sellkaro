@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import LogoutIcon from '@mui/icons-material/Logout';
-
+import API from './RenderBaseApi.js'
 import AddBankAccountForm from "./AddBankAccount";
 import {
   Box,
@@ -42,14 +42,14 @@ function Profile({userRole}) {
         if (!token) return;
 
         // Fetch profile
-        const profileRes = await axios.get("http://localhost:5000/users/me", {
+        const profileRes = await axios.get(`${API}/users/me`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setProfile(profileRes.data);
 
         // Fetch bank account
         const bankRes = await axios.get(
-          "http://localhost:5000/bankaccount/myaccount/",
+          `${API}/myaccount/`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
 
