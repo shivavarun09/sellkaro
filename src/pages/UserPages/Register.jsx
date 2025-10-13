@@ -20,7 +20,6 @@ export default function Register() {
   });
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
-console.log(API)
   const handleChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
