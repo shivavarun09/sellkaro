@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import API from './RenderBaseApi.js'
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import {
@@ -49,7 +50,7 @@ export default function SellGiftCard() {
 
     try {
       const { data } = await axios.post(
-        "http://localhost:5000/giftcards/sell",
+        `${API}/giftcards/sell`,
         formData,
         {
           headers: { Authorization: `Bearer ${token}` },
