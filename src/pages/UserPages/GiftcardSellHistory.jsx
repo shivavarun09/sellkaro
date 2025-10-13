@@ -1,10 +1,9 @@
-import  API  from "./RenderBaseApi.js"; //Base API
+import API from './RenderBaseApi.js'
 import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { Box, Typography, Container, CircularProgress, Button, Stack, Pagination } from "@mui/material";
 import SingleGiftCard from "./UserGCSingleCard";
 import AdminGCSinglecard from "./AdminGCSingleCard";
-import API from "./RenderBaseApi.js";
 
 const SellHistory = ({ userRole }) => {
   const [giftcards, setGiftcards] = useState([]);
@@ -27,14 +26,14 @@ const SellHistory = ({ userRole }) => {
     setMessage("");
 
     try {
-      const API =
+      const URL =
         userRole === "admin"
           ? gcStatusFilter
             ? `${API}/admin/allgc?gcstatus=${gcStatusFilter}&page=${page}&limit=6`
             : `${API}/admin/allgc?page=${page}&limit=6`
           : `${API}/giftcards/sellhistory?page=${page}&limit=6`;
 
-      const res = await axios.get(API, {
+      const res = await axios.get(URL, {
         headers: { Authorization: `Bearer ${token}` },
       });
 console.log("API Response:", res.data);
