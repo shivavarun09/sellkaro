@@ -49,7 +49,7 @@ function Profile({userRole}) {
 
         // Fetch bank account
         const bankRes = await axios.get(
-          `${API}/myaccount/`,
+          `${API}/bankaccount/myaccount`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
 
