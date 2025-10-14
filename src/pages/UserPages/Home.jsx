@@ -142,7 +142,7 @@ function  RouterAdapter() {
         { title: "WhatsApp", icon: <WhatsAppIcon />, segment: "whatsapp" },
       ],
     },
-    { segment: "aboutUs", title: "About Us", icon: <InfoIcon /> },
+    // { segment: "aboutUs", title: "About Us", icon: <InfoIcon /> },
         ]),
         
     !userRole && { segment: "login", title: "Login", icon: <LogoutIcon /> },
