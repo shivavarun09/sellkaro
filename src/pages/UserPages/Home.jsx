@@ -22,7 +22,8 @@ import SellGiftCardForm from "./SellGiftCardForm"
 import SellHistory from './GiftcardSellHistory'
 import ProfilePage from './ProfilePage';
 import HomeLandingPage from './HomeLandingPage';
-import AboutUsPage from './AboutUsPage'
+import AboutUsPage from './AboutUsPage';
+import LoginAndRegister from './LoginAndRegister'
 
 
 // const adminNav = [
@@ -157,7 +158,7 @@ if (userRole === "admin") {
     <AppProvider navigation={NAVIGATION} router={router}     theme={demoTheme}  branding={{title:"SellKaro", logo:<CardGiftcardIcon />}} >
       <DashboardLayout>
         <Routes>
-          <Route path="/login" element={<Login setUserRole={setUserRole}/>} />
+          <Route path="/login" element={<LoginAndRegister setUserRole={setUserRole}/>} />
           <Route path="/home" element={<HomeLandingPage />} />
           <Route path="/profile" element={<ProfilePage userRole={userRole}/>} />
           <Route path="/sellgiftcards" element={<SellGiftCardForm />} />

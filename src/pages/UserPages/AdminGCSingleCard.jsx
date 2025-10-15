@@ -167,7 +167,7 @@ export default function SingleGiftCard({ card }) {
             Check Giftcard details and verify
           </Typography>
             <Typography sx={{alignContent:"center",display:"flex",gap:0.5}}>
-          Code  {card.gccode}  
+          <CardGiftcardIcon/>  {card.gccode}  
            <Tooltip title="Copy Code">
           <IconButton
             size="small"
@@ -179,7 +179,7 @@ export default function SingleGiftCard({ card }) {
         </Tooltip>
           </Typography>
             <Typography sx={{alignContent:"center",display:"flex",gap:0.5}}>
-          Pin  {card.gcpin}  
+          <FiberPinIcon/>  {card.gcpin}  
                <Tooltip title="Copy Pin">
           <IconButton
             size="small"
@@ -191,7 +191,7 @@ export default function SingleGiftCard({ card }) {
         </Tooltip>
           </Typography>
             <Typography sx={{alignContent:"center",display:"flex",gap:0.5}}>
-          Value  {card.gcvalue} 
+          <CurrencyRupeeIcon/>  {card.gcvalue} 
           </Typography>
           
           <Button variant="contained" color="primary" sx={{ mt: 2, width: "100%" }} onClick={() => {

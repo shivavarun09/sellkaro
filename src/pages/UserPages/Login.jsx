@@ -11,6 +11,7 @@ import {
   Link,
   CssBaseline,
 } from "@mui/material";
+import { toast } from "react-toastify";
 
 export default function Login({setUserRole}) {
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -31,7 +32,8 @@ export default function Login({setUserRole}) {
       // ✅ Store token + role
       localStorage.setItem("userToken", JSON.stringify({ token, role }));
 setUserRole(role)
-      setMessage(res.data.message);
+toast.success(res.data.message)
+      // setMessage(res.data.message);
       // Navigate after 2-3 seconds to show success message
     setTimeout(() => {
       if (role === "admin") {
@@ -42,14 +44,15 @@ setUserRole(role)
     }, 2000); // 2 seconds
   
     } catch (err) {
-      setMessage(err.response?.data?.message || "Login failed");
+  toast.error(err.response?.data?.message || "Login failed");   
+     // setMessage(err.response?.data?.message || "Login failed");
     }
   };
 
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
-      <Box
+      {/* <Box
         sx={{
           marginTop: 8,
           display: "flex",
@@ -59,7 +62,7 @@ setUserRole(role)
           boxShadow: 3,
           borderRadius: 2,
         }}
-      >
+      > */}
         <Typography component="h1" variant="h5">
           Welcome!
         </Typography>
@@ -98,13 +101,13 @@ setUserRole(role)
             Log in
           </Button>
         </Box>
-        <Typography variant="body2" sx={{ mt: 0 }}>
+        {/* <Typography variant="body2" sx={{ mt: 0 }}>
           Don&apos;t have an account?{" "}
           <Link href="/register" variant="body2">
             Sign up
           </Link>
-        </Typography>
-        {message && (
+        </Typography> */}
+        {/* {message && (
           <Typography
             variant="body2"
             color="text.secondary"
@@ -112,8 +115,8 @@ setUserRole(role)
           >
             {message}
           </Typography>
-        )}
-      </Box>
+        )} */}
+      {/* </Box> */}
     </Container>
   );
 }

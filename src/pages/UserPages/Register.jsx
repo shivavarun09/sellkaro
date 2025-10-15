@@ -1,6 +1,6 @@
 import  API  from "./RenderBaseApi.js"; //Base API
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { data, useNavigate } from "react-router-dom";
 import axios from "axios";
 import {
   Container,
@@ -11,6 +11,7 @@ import {
   Link,
   CssBaseline,
 } from "@mui/material";
+import {toast} from 'react-toastify'
 
 export default function Register() {
   const [formData, setFormData] = useState({
@@ -31,17 +32,19 @@ export default function Register() {
         `${API}/auth/register`,
         formData
       );
-      setMessage(res.data.message);
+      toast.success(res.data.message)
+      // setMessage(res.data.message);
       // navigate("/login");
     } catch (err) {
-      setMessage(err.response?.data?.message || "Registration failed");
+  toast.error(err.response?.data?.message || "Registration failed");   
+      // setMessage(err.response?.data?.message || "Registration failed");
     }
   };
 
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
-      <Box
+      {/* <Box
         sx={{
           marginTop: 8,
           display: "flex",
@@ -51,7 +54,7 @@ export default function Register() {
           boxShadow: 3,
           borderRadius: 2,
         }}
-      >
+      > */}
         <Typography component="h1" variant="h5">
           Welcome!
         </Typography>
@@ -97,16 +100,16 @@ export default function Register() {
             variant="contained"
             sx={{ mt: 0, mb: 2 }}
           >
-            Register
+            Sign Up
           </Button>
         </Box>
-        <Typography variant="body2">
+        {/* <Typography variant="body2">
           Already have an account?{" "}
           <Link href="/login" variant="body2">
             Log in
           </Link>
-        </Typography>
-        {message && (
+        </Typography> */}
+        {/* {message && (
           <Typography
             variant="body2"
             color="success.main"
@@ -114,8 +117,8 @@ export default function Register() {
           >
             {message}
           </Typography>
-        )}
-      </Box>
+        )} */}
+      {/* </Box> */}
     </Container>
   );
 }
