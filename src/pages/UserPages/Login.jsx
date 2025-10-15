@@ -32,13 +32,14 @@ export default function Login({setUserRole}) {
       localStorage.setItem("userToken", JSON.stringify({ token, role }));
 setUserRole(role)
       setMessage(res.data.message);
-      if(role==="admin"){
-navigate("/all")
+      // Navigate after 2-3 seconds to show success message
+    setTimeout(() => {
+      if (role === "admin") {
+        navigate("/all");
+      } else {
+        navigate("/profile");
       }
-      else{
-navigate("/profile")
-
-      }
+    }, 2000); // 2 seconds
   
     } catch (err) {
       setMessage(err.response?.data?.message || "Login failed");

@@ -13,6 +13,8 @@ import {
   Modal,
   Select,
   MenuItem,
+  Tooltip,
+  IconButton,
 } from "@mui/material";
 import {
   CardGiftcard as CardGiftcardIcon,
@@ -21,7 +23,7 @@ import {
   DateRange as DateRangeIcon,
   KeyboardArrowRight as KeyboardArrowRightIcon,
 } from "@mui/icons-material";
-
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 const modalStyle = {
   position: "absolute",
   top: "50%",
@@ -98,6 +100,11 @@ export default function SingleGiftCard({ card }) {
     }
   };
 
+
+   const handleCopy = (text) => {
+    navigator.clipboard.writeText(text);
+    alert(`Copied: ${text}`); // You can replace this with Snackbar or toast
+  };
   return (
     <>
       <Card variant="outlined" sx={{ mb: 2 }}>
@@ -156,17 +163,35 @@ export default function SingleGiftCard({ card }) {
       <Modal open={verifyModal} onClose={handleCloseVerifyModal}>
         <Box sx={modalStyle}>
           <Typography variant="h6">Verify Gift Card</Typography>
-          <Typography sx={{ mb: 2 }}>
+          <Typography variant="body2" sx={{ mb: 2 }}>
             Check Giftcard details and verify
           </Typography>
-            <Typography >
-            {card.gccode}
+            <Typography sx={{alignContent:"center",display:"flex",gap:0.5}}>
+          Code  {card.gccode}  
+           <Tooltip title="Copy Code">
+          <IconButton
+            size="small"
+            onClick={() => handleCopy(card.gccode)}
+            sx={{ p: 0.5 }}
+          >
+            <ContentCopyIcon fontSize="small" />
+          </IconButton>
+        </Tooltip>
           </Typography>
-            <Typography>
-            {card.gcpin}
+            <Typography sx={{alignContent:"center",display:"flex",gap:0.5}}>
+          Pin  {card.gcpin}  
+               <Tooltip title="Copy Pin">
+          <IconButton
+            size="small"
+            onClick={() => handleCopy(card.gcpin)}
+            sx={{ p: 0.5 }}
+          >
+            <ContentCopyIcon fontSize="small" />
+          </IconButton>
+        </Tooltip>
           </Typography>
-            <Typography >
-            {card.gcvalue}
+            <Typography sx={{alignContent:"center",display:"flex",gap:0.5}}>
+          Value  {card.gcvalue} 
           </Typography>
           
           <Button variant="contained" color="primary" sx={{ mt: 2, width: "100%" }} onClick={() => {
