@@ -32,6 +32,7 @@ function Profile({userRole}) {
   const [bankAccounts, setBankAccounts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [open, setOpen] = useState(false);
+  const [isBankDetailUpdated,setIsBankDetailsUpdated]= useState(false)
 
   // Fetch profile & bank account data
   useEffect(() => {
@@ -64,7 +65,7 @@ function Profile({userRole}) {
     };
 
     fetchData();
-  }, []);
+  }, [isBankDetailUpdated]);
 
   // Logout
   const handleLogout = () => {
@@ -173,7 +174,7 @@ function Profile({userRole}) {
       {/* Add Bank Modal */}
       <Modal open={open} onClose={() => setOpen(false)}>
         <Box sx={{ ...modalStyle, width: 350 }}>
-          <AddBankAccountForm bankAccounts={bankAccounts} onClose={() => setOpen(false)} />
+          <AddBankAccountForm bankAccounts={bankAccounts} isBankDetailUpdated={isBankDetailUpdated} setIsBankDetailsUpdated={setIsBankDetailsUpdated} onClose={() => setOpen(false)} />
         </Box>
       </Modal>
     </Container>
