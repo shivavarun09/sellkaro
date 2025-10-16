@@ -15,6 +15,7 @@ import {
   Box,
 } from "@mui/material";
 import SellGiftCatdTC from "./SellGiftCardTC";
+import { toast} from 'react-toastify'
 export default function SellGiftCard() {
   const navigate = useNavigate();
 
@@ -58,9 +59,11 @@ export default function SellGiftCard() {
       );
 
       setMessage(data.message || "Gift card listed successfully 🎉");
-      navigate("/user"); // redirect after success
+      toast.success(data.message || "Gift card listed successfully 🎉")
+      // navigate("/user"); // redirect after success
     } catch (err) {
       setMessage(err.response?.data?.message || "❌ Failed to list gift card");
+      toast.error(err.response?.data?.message || "❌ Failed to list gift card")
     } finally {
       setLoading(false);
     }
@@ -178,7 +181,7 @@ let selected = feeMap[formData.gcbrand] || { name: "Amazon", fee: 10 };
             {loading ? "Submitting..." : "Submit"}
           </Button>
 
-          {/* Feedback message */}
+          {/* Feedback message
           {message && (
             <Typography
               variant="body2"
@@ -187,7 +190,7 @@ let selected = feeMap[formData.gcbrand] || { name: "Amazon", fee: 10 };
             >
               {message}
             </Typography>
-          )}
+          )} */}
         </Paper>
       </Box>
       <Box sx={{

@@ -37,7 +37,7 @@ export default function LoginAndRegister({ setUserRole }) {
             onClick={handleFormType}
             sx={{ cursor: "pointer", ml: 0.5 }}
           >
-            {formType ? "Sign Up" : "Log In"}
+            {formType ? "Create" : "Sign In"}
           </Link>
         </Typography>
       </Box>

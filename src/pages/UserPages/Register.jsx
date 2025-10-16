@@ -20,6 +20,7 @@ export default function Register() {
     password: "",
   });
   const [message, setMessage] = useState("");
+  const [loading,setLoading]= useState(false)
   const navigate = useNavigate();
   const handleChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -27,6 +28,7 @@ export default function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      setLoading(true)
       const res = await axios.post(
         // http://localhost:5000/auth/register
         `${API}/auth/register`,
@@ -35,8 +37,13 @@ export default function Register() {
       toast.success(res.data.message)
       // setMessage(res.data.message);
       // navigate("/login");
+      setTimeout(()=>{
+        navigate("/login")
+      },2000)
     } catch (err) {
   toast.error(err.response?.data?.message || "Registration failed");   
+        setLoading(false)
+
       // setMessage(err.response?.data?.message || "Registration failed");
     }
   };
@@ -98,9 +105,11 @@ export default function Register() {
             type="submit"
             fullWidth
             variant="contained"
+            disabled={loading}
             sx={{ mt: 0, mb: 2 }}
           >
-            Sign Up
+          {loading ? "Creating Account..." : "Create Account"}
+
           </Button>
         </Box>
         {/* <Typography variant="body2">

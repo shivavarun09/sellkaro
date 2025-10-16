@@ -16,6 +16,7 @@ import { toast } from "react-toastify";
 export default function Login({setUserRole}) {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [message, setMessage] = useState("");
+  const [loading,setLoading] = useState(false)
   const navigate = useNavigate();
 
   const handleChange = (e) =>
@@ -24,6 +25,7 @@ export default function Login({setUserRole}) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      setLoading(true)
       // http://localhost:5000/auth/login
       const res = await axios.post(`${API}/auth/login`, formData);
 
@@ -46,7 +48,8 @@ toast.success(res.data.message)
     }, 2000); // 2 seconds
   
     } catch (err) {
-  toast.error(err.response?.data?.message || "Login failed");   
+  toast.error(err.response?.data?.message || "Login failed");  
+  setLoading(false) 
      // setMessage(err.response?.data?.message || "Login failed");
     }
   };
@@ -98,9 +101,11 @@ toast.success(res.data.message)
             type="submit"
             fullWidth
             variant="contained"
+            disabled={loading}
             sx={{ mt: 1, mb: 2 }}
           >
-            Log in
+            {loading ? "Signing In..." : "Sign In"}
+
           </Button>
         </Box>
         {/* <Typography variant="body2" sx={{ mt: 0 }}>
