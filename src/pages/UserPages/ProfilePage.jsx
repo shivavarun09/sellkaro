@@ -42,6 +42,8 @@ function Profile({userRole}) {
 
         if (!token) return;
 
+        
+
         // Fetch profile
         const profileRes = await axios.get(`${API}/users/me`, {
           headers: { Authorization: `Bearer ${token}` },
