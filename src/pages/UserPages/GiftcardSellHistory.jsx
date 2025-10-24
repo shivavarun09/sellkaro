@@ -1,11 +1,11 @@
 import API from './RenderBaseApi.js'
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback , useContext} from "react";
 import axios from "axios";
 import { Box, Typography, Container, CircularProgress, Button, Stack, Pagination } from "@mui/material";
 import SingleGiftCard from "./UserGCSingleCard";
 import AdminGCSinglecard from "./AdminGCSingleCard";
-
-const SellHistory = ({ userRole }) => {
+import {UserContext} from "./UserContext.jsx"
+const SellHistory = () => {
   const [giftcards, setGiftcards] = useState([]);
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState("");
@@ -13,7 +13,8 @@ const SellHistory = ({ userRole }) => {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
-  const token = JSON.parse(localStorage.getItem("userToken") || "{}")?.token;
+  const {token,userRole} = useContext(UserContext)
+  // const token = JSON.parse(localStorage.getItem("userToken") || "{}")?.token;
 
   const fetchGiftCards = useCallback(async () => {
     if (!token) {
