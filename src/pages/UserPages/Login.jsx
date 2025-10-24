@@ -1,5 +1,5 @@
 import  API  from "./RenderBaseApi.js"; //Base API
-import React, { useState } from "react";
+import React, { useState , useContext} from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import {
@@ -12,8 +12,11 @@ import {
   CssBaseline,
 } from "@mui/material";
 import { toast } from "react-toastify";
+// Import useContext
+import { UserContext } from "./UserContext";
 
-export default function Login({setUserRole}) {
+
+export default function Login() {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [message, setMessage] = useState("");
   const [loading,setLoading] = useState(false)
@@ -21,6 +24,9 @@ export default function Login({setUserRole}) {
 
   const handleChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
+
+// Inside Login component
+const { setToken,setUserRole } = useContext(UserContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -30,11 +36,11 @@ export default function Login({setUserRole}) {
       const res = await axios.post(`${API}/auth/login`, formData);
 
       const { token, role } = res.data.data;
-
       // ✅ Store token + role
       // Store token + role + expiry (1 hour = 60 * 60 * 1000 ms)
 const expiryTime = Date.now() + 60 * 60 * 1000;
       localStorage.setItem("userToken", JSON.stringify({ token, role ,expiry: expiryTime}));
+      setToken(token)
 setUserRole(role)
 toast.success(res.data.message)
       // setMessage(res.data.message);
