@@ -36,10 +36,8 @@ const { setToken,setUserRole } = useContext(UserContext);
       const res = await axios.post(`${API}/auth/login`, formData);
 
       const { token, role } = res.data.data;
-      // ✅ Store token + role
-      // Store token + role + expiry (1 hour = 60 * 60 * 1000 ms)
-const expiryTime = Date.now() + 60 * 60 * 1000;
-      localStorage.setItem("userToken", JSON.stringify({ token, role ,expiry: expiryTime}));
+
+      localStorage.setItem("userToken", JSON.stringify({ token, role }));
       setToken(token)
 setUserRole(role)
 toast.success(res.data.message)

@@ -85,7 +85,6 @@ function RouterAdapter() {
           },
         ]),
     !userRole && { segment: "login", title: "Login", icon: <LoginIcon /> },
-    userRole && { segment: "logout", title: "Logout", icon: <LogoutIcon /> },
   ].filter(Boolean);
 
   if (userRole === "admin") NAVIGATION = NAVIGATION.filter((item) => item.segment !== "home");
@@ -109,17 +108,6 @@ function RouterAdapter() {
           <Route path="/whatsapp" element={<WhatsAppRedirect />} />
           <Route path="/aboutus" element={<AboutUsPage />} />
           <Route path="/register" element={<Register />} />
-          <Route
-            path="/logout"
-            element={
-              <LogoutConfirm
-                onLogout={() => {
-                  clearData(); // clears userRole & token
-                  navigate("/login");
-                }}
-              />
-            }
-          />
           <Route path="*" element={<HomeLandingPage />} />
         </Routes>
       </DashboardLayout>

@@ -37,7 +37,7 @@ const SellHistory = () => {
       const res = await axios.get(URL, {
         headers: { Authorization: `Bearer ${token}` },
       });
-console.log("API Response:", res.data);
+// console.log("API Response:", res.data);
 
       setGiftcards(res.data.data || []);
       setTotalPages(res.data.totalPages || 1);

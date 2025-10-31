@@ -388,7 +388,7 @@ import {
   Modal,
   Avatar,
   Container,
-  Paper,
+  Paper,Dialog, DialogTitle, DialogContent, DialogActions,
 } from "@mui/material";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useNavigate } from "react-router-dom";
@@ -405,6 +405,7 @@ const modalStyle = {
   p: 3,
 };
 
+
 function Profile({ userRole }) {
   const {
     profile,
@@ -412,13 +413,20 @@ function Profile({ userRole }) {
     loading,
     isBankDetailUpdated,
     setIsBankDetailsUpdated,
+    clearData
   } = useContext(UserContext);
 
   const [open, setOpen] = useState(false);
+  const [logoutModal,setLogoutModal]=useState(false)
 const navigate = useNavigate();
-  const handleLogout = () => {
-    navigate("/logout")
+  const handleLogoutModal = () => {
+    setLogoutModal(true)
   };
+  const handleLogout=()=>{
+    clearData();
+    // navigate("/login")
+  }
+const handleClose = () => setLogoutModal(false);
 
   if (loading) return <Typography align="center">Loading...</Typography>;
 
@@ -439,7 +447,7 @@ const navigate = useNavigate();
         <Avatar alt={profile.name} sx={{ mb: 1 }} src="/static/images/avatar/1.jpg" />
         <Typography variant="h6" sx={{ mb: 1 }}>{profile.name}</Typography>
         <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>{profile.email}</Typography>
-        <Button size="small" color="primary" variant="contained" onClick={handleLogout}>
+        <Button size="small" color="primary" variant="contained" onClick={handleLogoutModal}>
           Logout <LogoutIcon />
         </Button>
       </Box>
@@ -479,6 +487,20 @@ const navigate = useNavigate();
           />
         </Box>
       </Modal>
+
+      {/* Logout model */}
+        <Dialog open={logoutModal} onClose={handleClose}>
+      <DialogTitle>Confirm Logout</DialogTitle>
+      <DialogContent>Are you sure you want to log out?</DialogContent>
+      <DialogActions>
+        <Button onClick={handleClose} color="secondary" variant="outlined">
+          Cancel
+        </Button>
+        <Button onClick={handleLogout} color="error" variant="contained">
+          Logout
+        </Button>
+      </DialogActions>
+    </Dialog>
     </Container>
   );
 }
