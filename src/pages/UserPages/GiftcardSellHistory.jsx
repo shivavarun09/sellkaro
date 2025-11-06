@@ -98,11 +98,16 @@ const SellHistory = () => {
         }}
       >
         {loading ? (
-          <Box sx={{ display: "flex", justifyContent: "center", width: "100%", mt: 4 }}>
-            <CircularProgress />
-          {userRole==="admin"?(<AdminGiftCardSkeleton/>):(<GiftCardSkeleton/>)}
-          </Box>
-        ) : message ? (
+         <>
+    {Array.from({ length: 6 }).map((_, i) =>
+      userRole === "admin" ? (
+        <AdminGiftCardSkeleton key={i} />
+      ) : (
+        <GiftCardSkeleton key={i} />
+      )
+    )}
+  </>
+  ) : message ? (
           <Typography color="error" align="center">
             {message}
           </Typography>
