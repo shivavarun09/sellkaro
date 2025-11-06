@@ -5,6 +5,9 @@ import { Box, Typography, Container, CircularProgress, Button, Stack, Pagination
 import SingleGiftCard from "./UserGCSingleCard";
 import AdminGCSinglecard from "./AdminGCSingleCard";
 import {UserContext} from "./UserContext.jsx"
+import AdminGiftCardSkeleton from "./AdminGiftCardSkeleton.jsx";
+import GiftCardSkeleton from "./GiftCardSkeleton.jsx"
+
 const SellHistory = () => {
   const [giftcards, setGiftcards] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -97,6 +100,7 @@ const SellHistory = () => {
         {loading ? (
           <Box sx={{ display: "flex", justifyContent: "center", width: "100%", mt: 4 }}>
             <CircularProgress />
+          {userRole==="admin"?(<AdminGiftCardSkeleton/>):(<GiftCardSkeleton/>)}
           </Box>
         ) : message ? (
           <Typography color="error" align="center">
