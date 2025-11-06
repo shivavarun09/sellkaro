@@ -17,7 +17,7 @@ import {
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 
 export default function SingleGiftCard({ card }) {
-  console.log(card)
+  // console.log(card)
   if (!card) {
     return null; // Or some fallback UI
   }
