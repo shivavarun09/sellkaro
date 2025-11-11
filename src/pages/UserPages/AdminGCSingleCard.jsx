@@ -100,6 +100,46 @@ export default function SingleGiftCard({ card }) {
     }
   };
 
+const handleMakePayment = async () => {
+  try {
+    const res = await axios.post(`${API}/admin/payment/create-order`, {
+      amount: card.gcUserPayout,
+    });
+
+    const order = res.data;
+
+    const options = {
+      key: "YOUR_RAZORPAY_TEST_KEY_ID",
+      amount: order.amount,
+      currency: order.currency,
+      name: "SellKaro Payout",
+      description: "Dummy Test Payment",
+      order_id: order.id,
+
+      handler: function (response) {
+        alert("Dummy Payment Successful!");
+        console.log("Payment ID:", response.razorpay_payment_id);
+        console.log("Order ID:", response.razorpay_order_id);
+        console.log("Signature:", response.razorpay_signature);
+
+        // Close modal on success
+        handleClosePayoutModal();
+      },
+
+      theme: {
+        color: "#1976d2",
+      },
+    };
+
+    const paymentObject = new window.Razorpay(options);
+    paymentObject.open();
+    
+  } catch (error) {
+    console.log(error);
+    alert("Failed to create Razorpay order");
+  }
+};
+
 
    const handleCopy = (text) => {
     navigator.clipboard.writeText(text);
@@ -145,19 +185,50 @@ export default function SingleGiftCard({ card }) {
       </Card>
 
       {/* Payout Modal */}
-      <Modal open={payoutModal} onClose={handleClosePayoutModal}>
-        <Box sx={modalStyle}>
-          <Typography><strong>Account Holder:</strong> {userBankDetails?.accountHolderName}</Typography>
-          <Typography><strong>Bank Name:</strong> {userBankDetails?.bankName}</Typography>
-          <Typography><strong>Account Number:</strong> {userBankDetails?.accountNumber}</Typography>
-          <Typography><strong>IFSC Code:</strong> {userBankDetails?.ifscCode}</Typography>
-          <Typography><strong>Payout Rupees:</strong> {card.gcUserPayout || "N/A"}</Typography>
+    {/* Payout Modal */}
+<Modal open={payoutModal} onClose={handleClosePayoutModal}>
+  <Box sx={modalStyle}>
+    <Typography>
+      <strong>Account Holder:</strong> {userBankDetails?.accountHolderName}
+    </Typography>
 
-          <Button variant="outlined" onClick={handleClosePayoutModal} sx={{ mt: 4, width: "100%" }}>
-            Make Payment
-          </Button>
-        </Box>
-      </Modal>
+    <Typography>
+      <strong>Bank Name:</strong> {userBankDetails?.bankName}
+    </Typography>
+
+    <Typography>
+      <strong>Account Number:</strong> {userBankDetails?.accountNumber}
+    </Typography>
+
+    <Typography>
+      <strong>IFSC Code:</strong> {userBankDetails?.ifscCode}
+    </Typography>
+
+    <Typography>
+      <strong>Payout Rupees:</strong> {card.gcUserPayout || "N/A"}
+    </Typography>
+
+    <Box sx={{display:"flex",gap:1}}>
+      {/* ✅ Make Payment button here */}
+        <Button
+      variant="outlined"
+      sx={{ mt: 1, width: "100%" }}
+      onClick={handleClosePayoutModal}
+    >
+      Close
+    </Button>
+    <Button
+      variant="contained"
+      color="primary"
+      onClick={handleMakePayment}
+      sx={{ mt: 1, width: "100%" }}
+    >
+      Make Payment
+    </Button>
+    </Box>
+  </Box>
+</Modal>
+
 
       {/* Verify GC Modal */}
       <Modal open={verifyModal} onClose={handleCloseVerifyModal}>
